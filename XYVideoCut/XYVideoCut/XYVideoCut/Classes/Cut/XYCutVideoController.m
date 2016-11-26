@@ -36,21 +36,24 @@
 - (XYMenuView *)menuView {
     if (_menuView == nil) {
         XYMenuView *menuView = [XYMenuView menuViewToSuperView:self.view];
-        __weak typeof(self) weakSelf = self;
-        // 快速导出
-        [menuView.fastExportBtn xy_buttonClickBlock:^(UIButton *btn) {
-            [weakSelf.menuView dismissMenuView];
-            [weakSelf exportVideoWithPressName:AVAssetExportPreset640x480];
-        }];
-        // 高清导出
-        [menuView.hdExportBtn xy_buttonClickBlock:^(UIButton *btn) {
-            [weakSelf.menuView dismissMenuView];
-            [weakSelf exportVideoWithPressName:AVAssetExportPreset1280x720];
-        }];
-        // 超清
-        [menuView.superclearBtn  xy_buttonClickBlock:^(UIButton *btn) {
-            [weakSelf.menuView dismissMenuView];
-            [weakSelf exportVideoWithPressName:AVAssetExportPreset1920x1080];
+        [menuView setMenuViewClickBlock:^(XYMenuViewBtnType type) {
+            switch (type) {
+                case XYMenuViewBtnTypeFastExport:
+                    [self.menuView dismissMenuView];
+                    [self exportVideoWithPressName:AVAssetExportPreset640x480];
+                    break;
+                case XYMenuViewBtnTypeHDExport:
+                    [self.menuView dismissMenuView];
+                    [self exportVideoWithPressName:AVAssetExportPreset1280x720];
+                    break;
+                case XYMenuViewBtnTypeSuperClear:
+                    [self.menuView dismissMenuView];
+                    [self exportVideoWithPressName:AVAssetExportPreset1920x1080];
+                    break;
+                case XYMenuViewBtnTypeCancel:
+                    
+                    break;
+            }
         }];
         self.menuView = menuView;
     }

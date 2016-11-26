@@ -12,6 +12,14 @@
 @interface XYMenuView ()
 @property (nonatomic, weak) UIView *maskView;
 @property (nonatomic, weak) UIView *contentView;
+/** 快速导出 **/
+@property (nonatomic, weak) UIButton *fastExportBtn;
+/** 高清导出 **/
+@property (nonatomic, weak) UIButton *hdExportBtn;
+/** 超清导出 **/
+@property (nonatomic, weak) UIButton *superclearBtn;
+/** 取消 **/
+@property (nonatomic, weak) UIButton *cancelBtn;
 
 @property (nonatomic, weak) NSLayoutConstraint *selfTopConstr;
 @end
@@ -108,9 +116,21 @@
         self.contentView.backgroundColor = self.separatorColor;
         self.maskView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
         [self.fastExportBtn setTitle:@"快速导出" forState:UIControlStateNormal];
+        self.fastExportBtn.tag = XYMenuViewBtnTypeFastExport;
+        [self.fastExportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         [self.hdExportBtn setTitle:@"高清导出" forState:UIControlStateNormal];
+        self.hdExportBtn.tag = XYMenuViewBtnTypeHDExport;
+        [self.hdExportBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         [self.superclearBtn setTitle:@"超清导出" forState:UIControlStateNormal];
+        self.superclearBtn.tag = XYMenuViewBtnTypeSuperClear;
+        [self.superclearBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         [self.cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        self.cancelBtn.tag = XYMenuViewBtnTypeCancel;
+        [self.cancelBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         __weak typeof(self) weakSelf = self;
         [self.cancelBtn xy_buttonClickBlock:^(UIButton *btn) {
                 
@@ -164,6 +184,11 @@
     [self dismissMenuView];
 }
 
+- (void)btnClick:(UIButton *)btn {
+    if (self.menuViewClickBlock) {
+        self.menuViewClickBlock(btn.tag);
+    }
+}
 
 #pragma mark - lazy loading
 - (UIView *)maskView {
