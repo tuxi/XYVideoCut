@@ -402,29 +402,29 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.frameView addSubview:tmp];
         });
-        
-        
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        for (int i=1; i<=[times count]; i++) {
-            CMTime time = [((NSValue *)[times objectAtIndex:i-1]) CMTimeValue];
-            
-            CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
-            
-            UIImage *videoScreen;
-            if ([self isRetina]){
-                videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage scale:2.0 orientation:UIImageOrientationUp];
-            } else {
-                videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];
-            }
-            
-            CGImageRelease(halfWayImage);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIImageView *imageView = (UIImageView *)[self.frameView viewWithTag:i];
-                [imageView setImage:videoScreen];
+        @autoreleasepool {
+            for (int i=1; i<=[times count]; i++) {
+                CMTime time = [((NSValue *)[times objectAtIndex:i-1]) CMTimeValue];
                 
-            });
+                CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
+                
+                UIImage *videoScreen;
+                if ([self isRetina]){
+                    videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage scale:2.0 orientation:UIImageOrientationUp];
+                } else {
+                    videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];
+                }
+                
+                CGImageRelease(halfWayImage);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIImageView *imageView = (UIImageView *)[self.frameView viewWithTag:i];
+                    [imageView setImage:videoScreen];
+                    
+                });
+            }
         }
     });
 }

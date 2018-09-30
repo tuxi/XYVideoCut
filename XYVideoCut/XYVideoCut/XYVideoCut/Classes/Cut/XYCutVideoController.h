@@ -10,5 +10,6 @@
 
 @interface XYCutVideoController : UIViewController
 
-@property (nonatomic, strong) NSDictionary *infoDict;
+@property (nonatomic, copy) NSURL *videoURL;
+
 @end

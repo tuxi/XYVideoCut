@@ -61,7 +61,8 @@
     
     [picker dismissViewControllerAnimated:YES completion:^{
         XYCutVideoController *cutVideoVc = [XYCutVideoController new];
-        cutVideoVc.infoDict = info;
+        NSURL *videoURL = [info objectForKey:@"UIImagePickerControllerMediaURL"];
+        cutVideoVc.videoURL = videoURL;
         [self.navigationController pushViewController:cutVideoVc animated:YES];
     }];
     

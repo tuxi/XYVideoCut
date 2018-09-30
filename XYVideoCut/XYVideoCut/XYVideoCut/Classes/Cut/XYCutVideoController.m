@@ -12,9 +12,6 @@
 
 @interface XYCutVideoController () <ICGVideoTrimmerDelegate>
 
-@property (nonatomic, weak) XYVideoPlayerView *videoPlayerView;
-@property (nonatomic, weak) ICGVideoTrimmerView *cutView;
-
 @property (nonatomic, assign) BOOL isPlaying;
 @property (nonatomic, assign) CGFloat startTime;
 @property (nonatomic, assign) CGFloat stopTime;
@@ -26,12 +23,18 @@
 @property (nonatomic, strong) AVAsset *asset;
 
 @property (nonatomic, strong) AVAssetExportSession *exportSession;
-
 @property (nonatomic, weak) XYMenuView *menuView;
+@property (nonatomic, strong) XYCutVideoView *view;
 
 @end
 
 @implementation XYCutVideoController
+
+@dynamic view;
+
+- (XYCutVideoView *)view {
+    return (id)[super view];
+}
 
 - (XYMenuView *)menuView {
     if (_menuView == nil) {
@@ -65,8 +68,8 @@
     
     XYCutVideoView *view = [[XYCutVideoView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view = view;
-    self.cutView = view.cutView;
-    self.videoPlayerView = view.videoPlayerView;
+    self.view.cutView = view.cutView;
+    self.view.videoPlayerView = view.videoPlayerView;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,7 +77,7 @@
     self.tempVideoPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"tempVideo.mov"];
     self.view.backgroundColor = [UIColor colorWithRed:56/255.0 green:55/255.0 blue:53/255.0 alpha:1];
     
-    [self pickerFinishPickingMedia];
+    [self initMedia];
     // 禁止系统手势
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
@@ -115,17 +118,17 @@
 }
 
 
-- (void)pickerFinishPickingMedia {
+- (void)initMedia {
 
      // 1.取出选中视频的URL
-    NSURL *videoURL = [self.infoDict objectForKey:@"UIImagePickerControllerMediaURL"];
+    NSURL *videoURL = self.videoURL;
     
     // 2.设置playerLayer
     AVAsset *asset = [AVAsset assetWithURL:videoURL];
     AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
     // 将videoPlayerView的layer转换为AVPlayerLayer
-    AVPlayerLayer *playerLayer = (AVPlayerLayer *)self.videoPlayerView.layer;
+    AVPlayerLayer *playerLayer = (AVPlayerLayer *)self.view.videoPlayerView.layer;
     [playerLayer setPlayer:player];
     
     // 设置视频播放的拉伸效果\等比例拉伸
@@ -135,14 +138,14 @@
     
     // 3.添加手势到videoPlayerView
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnVideoPlayerView:)];
-    [self.videoPlayerView addGestureRecognizer:tap];
+    [self.view.videoPlayerView addGestureRecognizer:tap];
     
     // 4.设置cutView
-    self.cutView.themeColor = [UIColor lightGrayColor]; // 设置视频修剪器的主题颜色
-    [self.cutView setAsset:asset]; // 设置要剪辑的媒体资源
-    [self.cutView setShowsRulerView:NO]; // 显示视图修剪器上的标尺
-    self.cutView.trackerColor = [UIColor yellowColor]; // 设置跟踪器上的颜色
-    [self.cutView setDelegate:self];
+    self.view.cutView.themeColor = [UIColor lightGrayColor]; // 设置视频修剪器的主题颜色
+    [self.view.cutView setAsset:asset]; // 设置要剪辑的媒体资源
+    [self.view.cutView setShowsRulerView:NO]; // 显示视图修剪器上的标尺
+    self.view.cutView.trackerColor = [UIColor yellowColor]; // 设置跟踪器上的颜色
+    [self.view.cutView setDelegate:self];
     
     
     self.player = player;
@@ -226,7 +229,7 @@
     
     self.isPlaying = !self.isPlaying;
     // 当不在播放时隐藏跟踪器
-    [self.cutView hideTracker:!self.isPlaying];
+    [self.view.cutView hideTracker:!self.isPlaying];
 }
 
 #pragma mark - 视频播放时间的检测
@@ -249,12 +252,12 @@
 - (void)onPlaybackTimeCheckerTimer {
     // 让视频当前播放的时间跟随播放器
     self.videoPlaybackPosition = CMTimeGetSeconds([self.player currentTime]);
-    [self.cutView seekToTime:CMTimeGetSeconds([self.player currentTime])];
+    [self.view.cutView seekToTime:CMTimeGetSeconds([self.player currentTime])];
     
     // 当视频播放完后，重置开始时间
     if (self.videoPlaybackPosition >= self.stopTime) {
         self.videoPlaybackPosition = self.startTime;
-        [self.cutView seekToTime:self.startTime];
+        [self.view.cutView seekToTime:self.startTime];
         [self seekVideoToPos:self.startTime];
     }
 }
