@@ -22,8 +22,8 @@
         ICGVideoTrimmerView *cutView = [ICGVideoTrimmerView thrimmerViewWithAsset:nil];
         [self addSubview:cutView];
         self.cutView = cutView;
-        cutView.rightOverlayViewColor = videoPlayerView.backgroundColor;
-        cutView.leftOverlayViewColor = videoPlayerView.backgroundColor;
+        cutView.rightOverlayViewColor = [videoPlayerView.backgroundColor colorWithAlphaComponent:0.5];
+        cutView.leftOverlayViewColor = [videoPlayerView.backgroundColor colorWithAlphaComponent:0.5];
         
         self.videoPlayerView.translatesAutoresizingMaskIntoConstraints = NO;
         self.cutView.translatesAutoresizingMaskIntoConstraints = NO;
