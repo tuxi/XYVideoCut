@@ -2,31 +2,13 @@
 //  XYCutVideoView.m
 //  XYVideoCut
 //
-//  Created by mofeini on 16/11/14.
-//  Copyright © 2016年 com.test.demo. All rights reserved.
+//  Created by xiaoyuan on 16/11/14.
+//  Copyright © 2016年 alpface. All rights reserved.
 //
 
 #import "XYCutVideoView.h"
 
-
-@interface XYCutVideoView ()
-
-@property (nonatomic, weak) XYVideoPlayerView *videoPlayerView;
-@property (nonatomic, weak) ICGVideoTrimmerView *cutView;
-
-@end
-
 @implementation XYCutVideoView
-
-+ (instancetype)cutVideoViewWithCompletionHandle:(void (^)(ICGVideoTrimmerView * _Nonnull, XYVideoPlayerView * _Nonnull))block {
-    
-    XYCutVideoView *view = [[self alloc] init];
-    if (block) {
-        block(view.cutView, view.videoPlayerView);
-    }
-    
-    return view;
-}
 
 - (instancetype)initWithFrame:(CGRect)frame {
 
@@ -40,27 +22,35 @@
         ICGVideoTrimmerView *cutView = [ICGVideoTrimmerView thrimmerViewWithAsset:nil];
         [self addSubview:cutView];
         self.cutView = cutView;
-        cutView.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 100);
         cutView.rightOverlayViewColor = videoPlayerView.backgroundColor;
         cutView.leftOverlayViewColor = videoPlayerView.backgroundColor;
         
         self.videoPlayerView.translatesAutoresizingMaskIntoConstraints = NO;
         self.cutView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        if (@available(iOS 11.0, *)) {
+            [NSLayoutConstraint constraintWithItem:_videoPlayerView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.safeAreaLayoutGuide attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0].active = YES;
+            [NSLayoutConstraint constraintWithItem:_videoPlayerView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.safeAreaLayoutGuide attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0].active = YES;
+            [NSLayoutConstraint constraintWithItem:_videoPlayerView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.safeAreaLayoutGuide attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0].active = YES;
+        } else {
+            [NSLayoutConstraint constraintWithItem:_videoPlayerView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0].active = YES;
+            [NSLayoutConstraint constraintWithItem:_videoPlayerView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0].active = YES;
+            [NSLayoutConstraint constraintWithItem:_videoPlayerView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0].active = YES;
+        }
+        
+        if (@available(iOS 11.0, *)) {
+            [NSLayoutConstraint constraintWithItem:_cutView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.safeAreaLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-10.0].active = YES;
+            [NSLayoutConstraint constraintWithItem:_cutView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.safeAreaLayoutGuide attribute:NSLayoutAttributeLeading multiplier:1.0 constant:10.0].active = YES;
+            [NSLayoutConstraint constraintWithItem:_cutView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.safeAreaLayoutGuide attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-10.0].active = YES;
+        } else {
+            [NSLayoutConstraint constraintWithItem:_cutView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-10.0].active = YES;
+            [NSLayoutConstraint constraintWithItem:_cutView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:10.0].active = YES;
+            [NSLayoutConstraint constraintWithItem:_cutView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-10.0].active = YES;
+        }
+        [NSLayoutConstraint constraintWithItem:_cutView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_videoPlayerView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:20.0].active = YES;
+        [NSLayoutConstraint constraintWithItem:_cutView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:100.0].active = YES;
     }
     return self;
-}
-
-- (void)layoutSubviews {
-
-    [super layoutSubviews];
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(_videoPlayerView, _cutView);
-    NSDictionary *metrics = @{@"margin": @0, @"cutViewH": @100};
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_videoPlayerView]|" options:NSLayoutAttributeLeft | NSLayoutAttributeRight metrics:nil views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-margin-[_cutView]|" options:kNilOptions metrics:metrics views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_videoPlayerView][_cutView(cutViewH)]|" options:kNilOptions metrics:metrics views:views]];
-    
-    [self layoutIfNeeded];
 }
 
 

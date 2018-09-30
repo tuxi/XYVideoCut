@@ -2,7 +2,7 @@
 //  UIImage+Image.h
 //  BaDeJie
 //
-//  Created by mofeini on 16/9/5.
+//  Created by xiaoyuan on 16/9/5.
 //  Copyright © 2016年 sey. All rights reserved.
 //
 

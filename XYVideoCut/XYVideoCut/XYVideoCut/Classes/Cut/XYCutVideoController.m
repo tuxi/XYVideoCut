@@ -2,8 +2,8 @@
 //  XYCutVideoController.m
 //  XYVideoCut
 //
-//  Created by mofeini on 16/11/14.
-//  Copyright © 2016年 com.test.demo. All rights reserved.
+//  Created by xiaoyuan on 16/11/14.
+//  Copyright © 2016年 alpface. All rights reserved.
 //
 
 #import "XYCutVideoController.h"
@@ -63,10 +63,10 @@
 #pragma mark - View Controller View Life
 - (void)loadView {
     
-    self.view = [XYCutVideoView cutVideoViewWithCompletionHandle:^(ICGVideoTrimmerView * _Nonnull cutView, XYVideoPlayerView * _Nonnull videoPlayerView) {
-        self.videoPlayerView = videoPlayerView;
-        self.cutView = cutView;
-    }];
+    XYCutVideoView *view = [[XYCutVideoView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.view = view;
+    self.cutView = view.cutView;
+    self.videoPlayerView = view.videoPlayerView;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -143,8 +143,6 @@
     [self.cutView setShowsRulerView:NO]; // 显示视图修剪器上的标尺
     self.cutView.trackerColor = [UIColor yellowColor]; // 设置跟踪器上的颜色
     [self.cutView setDelegate:self];
-    [self.cutView resetSubviews]; // 重新设置子控件
-    
     
     
     self.player = player;

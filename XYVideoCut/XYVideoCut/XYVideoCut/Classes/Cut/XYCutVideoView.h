@@ -2,8 +2,8 @@
 //  XYCutVideoView.h
 //  XYVideoCut
 //
-//  Created by mofeini on 16/11/14.
-//  Copyright © 2016年 com.test.demo. All rights reserved.
+//  Created by xiaoyuan on 16/11/14.
+//  Copyright © 2016年 alpface. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -13,7 +13,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface XYCutVideoView : UIView
 
-+ (instancetype)cutVideoViewWithCompletionHandle:(void(^)(ICGVideoTrimmerView *cutView, XYVideoPlayerView *videoPlayerView))block;
+@property (nonatomic, weak) XYVideoPlayerView *videoPlayerView;
+@property (nonatomic, weak) ICGVideoTrimmerView *cutView;
 
 @end
 NS_ASSUME_NONNULL_END

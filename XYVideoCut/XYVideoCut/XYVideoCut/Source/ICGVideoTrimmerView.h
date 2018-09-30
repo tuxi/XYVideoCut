@@ -60,10 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)thrimmerViewWithAsset:(nullable AVAsset *)asset;
 
-
-// 重置子视图
-- (void)resetSubviews;
-
 // 寻求时间
 - (void)seekToTime:(CGFloat)startTime;
 

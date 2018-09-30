@@ -71,7 +71,7 @@
     if (self) {
         if (asset) {
             _asset = asset;
-            [self resetSubviews];
+//            [self resetSubviews];
         }
     }
     return self;
@@ -120,6 +120,18 @@
     return _rightOverlayViewColor ?: [UIColor colorWithWhite:0 alpha:0.8];
 }
 
+- (void)setBounds:(CGRect)bounds {
+    CGRect oldBounds = self.bounds;
+    
+    [super setBounds:bounds];
+    
+    if(!CGRectEqualToRect(oldBounds, bounds) && self.superview) {
+        [self resetSubviews];
+    }
+}
+
+/// 重置子视图，当bounds发生改变时会重置子视图，
+/// 以便适应autolayout或者frame的布局，对于屏幕旋转时bounds发生改变进行处理
 - (void)resetSubviews
 {
     self.clipsToBounds = YES;

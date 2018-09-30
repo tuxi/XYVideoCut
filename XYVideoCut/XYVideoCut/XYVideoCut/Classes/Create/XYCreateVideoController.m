@@ -2,11 +2,11 @@
 //  XYCreateVideoController.m
 //  XYVideoCut
 //
-//  Created by mofeini on 16/11/14.
-//  Copyright © 2016年 com.test.demo. All rights reserved.
+//  Created by xiaoyuan on 16/11/14.
+//  Copyright © 2016年 alpface. All rights reserved.
 //
 
-#import "XYCreateVideoController.H"
+#import "XYCreateVideoController.h"
 #import "XYCreateVideoView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "XYCutVideoController.h"

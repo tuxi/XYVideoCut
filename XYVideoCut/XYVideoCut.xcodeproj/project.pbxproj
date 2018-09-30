@@ -30,11 +30,11 @@
 		18FC6CB61DD9CAE000B6E4D2 /* XYConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC6CAB1DD9CAE000B6E4D2 /* XYConst.m */; };
 		18FC6CB91DD9CFB900B6E4D2 /* XYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC6CB81DD9CFB900B6E4D2 /* XYNavigationController.m */; };
 		18FC6CBC1DD9DFB500B6E4D2 /* XYGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC6CBB1DD9DFB500B6E4D2 /* XYGradientView.m */; };
-		18FC6CBF1DD9EB9E00B6E4D2 /* XYCutVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC6CBE1DD9EB9E00B6E4D2 /* XYCutVideoView.m */; };
 		18FC6CC71DD9F2CD00B6E4D2 /* ICGRulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC6CC11DD9F2CD00B6E4D2 /* ICGRulerView.m */; };
 		18FC6CC81DD9F2CD00B6E4D2 /* ICGThumbView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC6CC31DD9F2CD00B6E4D2 /* ICGThumbView.m */; };
 		18FC6CC91DD9F2CD00B6E4D2 /* ICGVideoTrimmerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC6CC61DD9F2CD00B6E4D2 /* ICGVideoTrimmerView.m */; };
 		18FC6CCC1DD9F41E00B6E4D2 /* XYVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC6CCB1DD9F41E00B6E4D2 /* XYVideoPlayerView.m */; };
+		D0AF6B67216094F700E9DC83 /* XYCutVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC6CBE1DD9EB9E00B6E4D2 /* XYCutVideoView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -328,7 +328,7 @@
 				TargetAttributes = {
 					18B76DB11DD995FC0041ECE6 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = P46TQQZ3AS;
+						DevelopmentTeam = NKW67GFDHM;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -376,6 +376,7 @@
 				18FC6CB31DD9CAE000B6E4D2 /* XYTabBarController.m in Sources */,
 				18FC6CB51DD9CAE000B6E4D2 /* UIImage+Image.m in Sources */,
 				18FC6CC71DD9F2CD00B6E4D2 /* ICGRulerView.m in Sources */,
+				D0AF6B67216094F700E9DC83 /* XYCutVideoView.m in Sources */,
 				18FC6CAF1DD9CAE000B6E4D2 /* XYCreateVideoController.m in Sources */,
 				18FC6CB11DD9CAE000B6E4D2 /* XYCutVideoController.m in Sources */,
 				18C387F91DDB716A0097190F /* UICollectionView+RollView.m in Sources */,
@@ -388,7 +389,6 @@
 				18B76DB71DD995FC0041ECE6 /* main.m in Sources */,
 				18FC6CB21DD9CAE000B6E4D2 /* AppDelegate.m in Sources */,
 				18FC6CB61DD9CAE000B6E4D2 /* XYConst.m in Sources */,
-				18FC6CBF1DD9EB9E00B6E4D2 /* XYCutVideoView.m in Sources */,
 				18C387671DDAC6150097190F /* UIButton+ClickBlock.m in Sources */,
 				18FC6CCC1DD9F41E00B6E4D2 /* XYVideoPlayerView.m in Sources */,
 				18C387FA1DDB716A0097190F /* UITableView+RollView.m in Sources */,
@@ -504,13 +504,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = P46TQQZ3AS;
+				DEVELOPMENT_TEAM = NKW67GFDHM;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XYVideoCut/XYVideoCut/Other/Pch/XYVideoCut.pch;
 				INFOPLIST_FILE = XYVideoCut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sey.XYVideoCut;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alpface.XYVideoCut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -519,13 +519,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = P46TQQZ3AS;
+				DEVELOPMENT_TEAM = NKW67GFDHM;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XYVideoCut/XYVideoCut/Other/Pch/XYVideoCut.pch;
 				INFOPLIST_FILE = XYVideoCut/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sey.XYVideoCut;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alpface.XYVideoCut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
